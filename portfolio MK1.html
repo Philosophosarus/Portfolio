@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sirfredrickrex (Steven Zamora)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Background image container */
+    .bg-cycle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: .15; /* faded */
+      background-size: cover;
+      background-position: center center;
+      transition: opacity 1s, background-image 1.5s ease-in-out;
+    }
+
+    /* Header */
+    header {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-family:KASTROO ;
+      font-weight: 300;
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+    }
+
+    /* Button grid */
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 4rem 2rem 2rem;
+    }
+
+    .nav-button {
+      width: 180px;
+      height: 180px;
+      border: none;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      outline: none;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-8px);
+      /* Simulated halftone-style shadow using layered colored shadows */
+      box-shadow:
+        0 10px 15px rgba(43, 160, 255, 0.4),
+        0 0 0 4px rgba(62, 103, 218, 0.87);
+    }
+
+    .nav-button-label {
+      position: absolute;
+      bottom: -28px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    /* Optional: subtle animation on load */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    main {
+      animation: fadeIn 1s ease-out;
+    }
+    footer {
+      padding: 1.8rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-btn {
+      font-family: 'Comic Neue', cursive;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #61a3f8b9;
+      color: #93e6ff;
+      border: 3px solid #8ba7f5;
+      border-radius: 50px;
+      padding: 0.6rem 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .footer-btn:hover {
+      background: #61a3f8b9;
+      color: #fff;
+      transform: scale(1.1);
+      box-shadow: 4px 4px 0 #5541b1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auto-rotating background -->
+  <div class="bg-cycle" id="bgCycle"></div>
+
+  <header>
+    <h1>Sirfredrickrex</h1>
+  </header>
+
+  <main>
+    <div class="nav-buttons">
+      <!-- Buttons will be injected via JS with placeholders -->
+    </div>
+  </main>
+
+  <script>
+    // Categories and placeholder image seeds (for visual distinction)
+    const categories = [
+      { name: 'Illustration', imgSeed: 1 },
+      { name: 'Animation', imgSeed: 2 },
+      { name: 'Sculpture', imgSeed: 3 },
+      { name: 'Prints', imgSeed: 4 }
+    ];
+
+    // Generate buttons
+    const buttonContainer = document.querySelector('.nav-buttons');
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-button';
+      // Using picsum.photos with seed for consistent placeholder per category
+      btn.style.backgroundImage = `url(https://picsum.photos/seed/cat${cat.imgSeed}/180/180)`;
+      btn.innerHTML = `<span class="nav-button-label">${cat.name}</span>`;
+      // Optional: add real links later
+      btn.addEventListener('click', () => {
+        alert(`Navigating to ${cat.name} — replace with real URL`);
+      });
+      buttonContainer.appendChild(btn);
+    });
+
+    // Background image cycling
+    const bgCycle = document.getElementById('bgCycle');
+    const bgImages = [
+      'https://picsum.photos/seed/bg1/1920/1080',
+      'https://picsum.photos/seed/bg2/1920/1080',
+      'https://picsum.photos/seed/bg3/1920/1080',
+      'https://picsum.photos/seed/bg4/1920/1080'
+    ];
+    let bgIndex = 0;
+
+    function cycleBackground() {
+      bgCycle.style.backgroundImage = `url(${bgImages[bgIndex]})`;
+      bgIndex = (bgIndex + 1) % bgImages.length;
+    }
+
+    // Initial load
+    cycleBackground();
+    // Change every 6 seconds
+    setInterval(cycleBackground, 6000);
+  </script>
+   <footer>
+    <div class="footer-links">
+      <button class="footer-btn" onclick="window.location='mailto:hello@sirfredrickrex.com'">Email</button>
+      <button class="footer-btn" onclick="window.open('https://instagram.com/sirfredrickrex', '_blank')">Instagram</button>
+      <button class="footer-btn" onclick="window.location='about.html'">About</button>
+    </div>
+  </footer>
+</body>
+</html>

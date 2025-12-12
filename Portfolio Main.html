@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sirfredrickrex (Steven Zamora)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Full-bleed animated background */
+    .bg-cycle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.18;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1.4s ease-in-out;
+    }
+
+    /* Clean header */
+    header {
+      padding: 2.4rem 2rem 1.8rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: 300;
+      font-size: 1.9rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+    }
+
+    /* Navigation buttons */
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.2rem;
+      padding: 4rem 2rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .nav-button {
+      width: 170px;
+      height: 170px;
+      border: none;
+      background: #000;
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-6px);
+      /* Halftone-inspired: layered colored shadow */
+      box-shadow:
+        0 8px 20px rgba(102, 0, 204, 0.45),    /* deep purple */
+        0 0 0 4px rgba(102, 0, 204, 0.12);
+    }
+
+    .nav-button-label {
+      position: absolute;
+      bottom: -26px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #ddd;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 400;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-cycle" id="bgCycle"></div>
+
+  <header>
+    <h1>Sirfredrickrex (Steven Zamora)</h1>
+  </header>
+
+  <main>
+    <div class="nav-buttons" id="navButtons"></div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="mailto:hello@sirfredrickrex.com" class="footer-link">Email</a>
+      <a href="https://instagram.com/sirfredrickrex" target="_blank" class="footer-link">Instagram</a>
+      <a href="about.html" class="footer-link">About</a>
+    </div>
+  </footer>
+
+  <script>
+    const categories = [
+      { name: 'Illustration', seed: 'ill1' },
+      { name: 'Animation', seed: 'anim1' },
+      { name: 'Sculpture', seed: 'sculp1' },
+      { name: 'Prints', seed: 'print1' }
+    ];
+
+    const container = document.getElementById('navButtons');
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-button';
+      btn.style.backgroundImage = `url(https://picsum.photos/seed/${cat.seed}/300/300)`;
+      btn.innerHTML = `<span class="nav-button-label">${cat.name}</span>`;
+      btn.onclick = () => alert(`→ ${cat.name} — replace with real link`);
+      container.appendChild(btn);
+    });
+
+    // Background cycling
+    const bgEl = document.getElementById('bgCycle');
+    const images = [
+      'https://picsum.photos/seed/bg_a/1920/1080',
+      'https://picsum.photos/seed/bg_b/1920/1080',
+      'https://picsum.photos/seed/bg_c/1920/1080',
+      'https://picsum.photos/seed/bg_d/1920/1080'
+    ];
+    let idx = 0;
+
+    function rotate() {
+      bgEl.style.backgroundImage = `url(${images[idx]})`;
+      idx = (idx + 1) % images.length;
+    }
+
+    rotate(); // initial
+    setInterval(rotate, 6000); // every 6 seconds
+  </script>
+</body>
+</html>

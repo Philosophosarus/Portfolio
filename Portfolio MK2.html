@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sirfredrickrex (Steven Zamora)</title>
+  <!-- Playful, graphic-novel-friendly font -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === HEADER === */
+    header {
+      background: #fff;
+      padding: 1.8rem 2rem;
+      text-align: center;
+      border-bottom: 4px dashed #ff4d94;
+    }
+
+    h1 {
+      font-family: 'Comic Neue', cursive;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: 1px;
+      color: #222;
+      text-shadow: 2px 2px 0 #ffebf5;
+    }
+
+    /* === MAIN CONTENT (animated center) === */
+    main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    /* Animated background panel */
+    .bg-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.22;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transition: background-image 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Navigation buttons */
+    .nav-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.2rem;
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .nav-button {
+      width: 160px;
+      height: 160px;
+      border: 4px solid #ff4d94;
+      border-radius: 24px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      outline: none;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  box-shadow 0.25s ease;
+      background-color: #fff;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow:
+        0 12px 20px rgba(255, 77, 148, 0.5),
+        0 0 0 6px rgba(255, 77, 148, 0.2);
+    }
+
+    .nav-button-label {
+      position: absolute;
+      bottom: -34px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Comic Neue', cursive;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #ff4d94;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: #fff;
+      padding: 1.8rem;
+      text-align: center;
+      border-top: 4px dashed #ff4d94;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-btn {
+      font-family: 'Comic Neue', cursive;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #ffebf5;
+      color: #ff4d94;
+      border: 3px solid #ff4d94;
+      border-radius: 50px;
+      padding: 0.6rem 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .footer-btn:hover {
+      background: #ff4d94;
+      color: #fff;
+      transform: scale(1.1);
+      box-shadow: 4px 4px 0 #ff9ec7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sirfredrickrex (Steven Zamora)</h1>
+  </header>
+
+  <main>
+    <div class="bg-panel" id="bgPanel"></div>
+    <div class="nav-buttons" id="navButtons"></div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <button class="footer-btn" onclick="window.location='mailto:hello@sirfredrickrex.com'">Email</button>
+      <button class="footer-btn" onclick="window.open('https://instagram.com/sirfredrickrex', '_blank')">Instagram</button>
+      <button class="footer-btn" onclick="window.location='about.html'">About</button>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation categories
+    const categories = [
+      { name: 'Illustration', imgSeed: 'illus' },
+      { name: 'Animation', imgSeed: 'anim' },
+      { name: 'Sculpture', imgSeed: 'sculp' },
+      { name: 'Prints', imgSeed: 'print' }
+    ];
+
+    // Create buttons
+    const navContainer = document.getElementById('navButtons');
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-button';
+      btn.style.backgroundImage = `url(https://picsum.photos/seed/${cat.imgSeed}/400/400)`;
+      btn.innerHTML = `<span class="nav-button-label">${cat.name}</span>`;
+      btn.addEventListener('click', () => {
+        alert(`→ ${cat.name} portfolio (replace with real page)`);
+      });
+      navContainer.appendChild(btn);
+    });
+
+    // Background cycling
+    const bgPanel = document.getElementById('bgPanel');
+    const bgImages = [
+      'https://picsum.photos/seed/work1/1200/800',
+      'https://picsum.photos/seed/work2/1200/800',
+      'https://picsum.photos/seed/work3/1200/800',
+      'https://picsum.photos/seed/work4/1200/800'
+    ];
+    let bgIndex = 0;
+
+    function cycleBackground() {
+      bgPanel.style.backgroundImage = `url(${bgImages[bgIndex]})`;
+      bgIndex = (bgIndex + 1) % bgImages.length;
+    }
+
+    // Start cycling immediately and every 5.5 seconds
+    cycleBackground();
+    setInterval(cycleBackground, 5500);
+  </script>
+</body>
+</html>
